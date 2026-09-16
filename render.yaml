@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: win-and-build
+    runtime: node
+    plan: 0.5c-512mb
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: BASE_URL
+        sync: false
+      - key: AUTH0_ISSUER_BASE_URL
+        sync: false
+      - key: AUTH0_CLIENT_ID
+        sync: false
+      - key: AUTH0_CLIENT_SECRET
+        sync: false
+      - key: SESSION_SECRET
+        sync: false
