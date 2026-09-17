@@ -27,6 +27,7 @@ export function createApp(env=process.env){
  if(base.protocol!=='https:'&&(production||!['localhost','127.0.0.1'].includes(base.hostname)))throw new Error('HTTPS is required outside local development.');
  if(configured){if(env.SESSION_SECRET.length<64)throw new Error('Use a cryptographically random session secret of at least 64 characters.');const issuer=new URL(env.AUTH0_ISSUER_BASE_URL);if(issuer.protocol!=='https:'||issuer.username||issuer.password||issuer.pathname!=='/'||issuer.search||issuer.hash)throw new Error('Authentication issuer must be an HTTPS origin.');}
  app.disable('x-powered-by');
+ app.use((req,res,next)=>{res.set('X-Robots-Tag','noindex, nofollow, noarchive');next();});
  if(env.TRUST_PROXY_HOPS){const hops=Number(env.TRUST_PROXY_HOPS);if(!Number.isInteger(hops)||hops<1||hops>3)throw new Error('Invalid proxy configuration.');app.set('trust proxy',hops);}
  app.use(helmet({strictTransportSecurity:production?undefined:false,contentSecurityPolicy:{directives:{defaultSrc:["'self'"],scriptSrc:["'self'","'unsafe-inline'"],styleSrc:["'self'","'unsafe-inline'",'https://fonts.googleapis.com'],fontSrc:["'self'",'https://fonts.gstatic.com'],imgSrc:["'self'",'data:','https://www.lego.com'],connectSrc:["'self'"],formAction:["'self'"],frameAncestors:["'none'"],objectSrc:["'none'"],baseUri:["'none'"],upgradeInsecureRequests:production?[]:null}},referrerPolicy:{policy:'no-referrer'}}));
  app.use(['/auth','/api'],(req,res,next)=>{res.set('Cache-Control','no-store');next();});
