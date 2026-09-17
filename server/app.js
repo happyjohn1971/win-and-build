@@ -36,7 +36,10 @@ export function createApp(env=process.env){
  app.use('/auth',(req,res,next)=>{if(!configured)return res.status(503).send('Member registration is not available yet. Please return to the website.');next();});
  app.get('/auth/login',(req,res)=>res.oidc.login({returnTo:'/#/members'}));
  app.get('/auth/signup',(req,res)=>res.oidc.login({returnTo:'/#/members',authorizationParams:{screen_hint:'signup'}}));
- app.post('/auth/logout',(req,res,next)=>{if(!sameOriginRequest(req,base))return res.status(403).json({error:'invalid_request_origin'});next();},(req,res)=>res.oidc.logout({returnTo:base.origin+'/#/members'}));
+ const logoutGuard=(req,res,next)=>{if(!sameOriginRequest(req,base))return res.status(403).json({error:'invalid_request_origin'});next();};
+ const logout=(req,res)=>res.oidc.logout({returnTo:base.origin+'/#/members'});
+ app.get('/auth/logout',logoutGuard,logout);
+ app.post('/auth/logout',logoutGuard,logout);
  app.get('/api/member/profile',verifiedMember,(req,res)=>{const user=req.oidc.user;res.json({name:user.name||'Member',email:user.email||''});});
  mountAdmin(app,env,base);
  app.use('/api',(req,res)=>res.status(404).json({error:'not_found'}));
