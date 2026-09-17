@@ -14,8 +14,8 @@ export function sameOriginRequest(req,base){
  const origin=req.get('origin');
  if(origin)return origin===base.origin;
  const referer=req.get('referer');
- if(!referer)return false;
- try{return new URL(referer).origin===base.origin;}catch{return false;}
+ if(referer){try{return new URL(referer).origin===base.origin;}catch{return false;}}
+ return req.get('sec-fetch-site')==='same-origin'&&req.get('host')===base.host;
 }
 export function createApp(env=process.env){
  const app=express();const production=env.NODE_ENV==='production';
