@@ -19,6 +19,9 @@ test('logout accepts a matching origin or same-site referrer only',()=>{
  const request=headers=>({get:name=>headers[name.toLowerCase()]});
  assert.equal(sameOriginRequest(request({origin:base.origin}),base),true);
  assert.equal(sameOriginRequest(request({referer:base.origin+'/#/members'}),base),true);
+ assert.equal(sameOriginRequest(request({'sec-fetch-site':'same-origin',host:base.host}),base),true);
+ assert.equal(sameOriginRequest(request({'sec-fetch-site':'cross-site',host:base.host}),base),false);
+ assert.equal(sameOriginRequest(request({'sec-fetch-site':'same-origin',host:'example.com'}),base),false);
  assert.equal(sameOriginRequest(request({origin:'https://example.com'}),base),false);
  assert.equal(sameOriginRequest(request({referer:'https://example.com/'}),base),false);
  assert.equal(sameOriginRequest(request({}),base),false);
