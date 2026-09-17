@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createApp,verifiedMember} from './app.js';
+import {createApp,verifiedMember,sameOriginRequest} from './app.js';
 test('unconfigured preview fails closed and does not serve private files',async()=>{
  const server=createApp({}).listen(0,'127.0.0.1');await new Promise(resolve=>server.once('listening',resolve));const root=`http://127.0.0.1:${server.address().port}`;
  try{const status=await fetch(root+'/api/auth/status');assert.deepEqual(await status.json(),{configured:false,authenticated:false,emailVerified:false});assert.equal(status.headers.get('cache-control'),'no-store');
@@ -13,6 +13,15 @@ test('unconfigured preview fails closed and does not serve private files',async(
 });
 test('member access requires both a session and verified email',()=>{
  for(const [authenticated,verified,expected] of [[false,false,401],[true,false,403],[true,true,200]]){let status=200,passed=false;const res={status(value){status=value;return this},json(){return this}};verifiedMember({oidc:{isAuthenticated:()=>authenticated,user:{email_verified:verified}}},res,()=>passed=true);assert.equal(status,expected);assert.equal(passed,expected===200);}
+});
+test('logout accepts a matching origin or same-site referrer only',()=>{
+ const base=new URL('https://winandbuild.co.uk');
+ const request=headers=>({get:name=>headers[name.toLowerCase()]});
+ assert.equal(sameOriginRequest(request({origin:base.origin}),base),true);
+ assert.equal(sameOriginRequest(request({referer:base.origin+'/#/members'}),base),true);
+ assert.equal(sameOriginRequest(request({origin:'https://example.com'}),base),false);
+ assert.equal(sameOriginRequest(request({referer:'https://example.com/'}),base),false);
+ assert.equal(sameOriginRequest(request({}),base),false);
 });
 test('production refuses absent credentials and insecure origins',()=>{assert.throws(()=>createApp({NODE_ENV:'production'}),/incomplete/);assert.throws(()=>createApp({BASE_URL:'http://example.com'}),/HTTPS/);assert.throws(()=>createApp({BASE_URL:'https://example.com/path'}),/origin/);});
 test('official SDK accepts session and authorization code configuration',()=>{assert.doesNotThrow(()=>createApp({BASE_URL:'https://example.com',NODE_ENV:'production',AUTH0_ISSUER_BASE_URL:'https://example.eu.auth0.com',AUTH0_CLIENT_ID:'test-client',AUTH0_CLIENT_SECRET:'test-only-client-secret',SESSION_SECRET:'a'.repeat(64)}));});
