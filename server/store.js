@@ -1,7 +1,23 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import pg from 'pg';
-import {SAMPLE_COMPETITIONS} from './seed-data.js';
+import {SAMPLE_COMPETITIONS,OLD_SEED_IDS} from './seed-data.js';
+
+function cloneSeed(){
+  return SAMPLE_COMPETITIONS.map(record=>({...record,questions:record.questions.map(q=>({...q,options:[...q.options]}))}));
+}
+
+/** True when the store still holds the original three starter prizes at revision 1 (never admin-edited). */
+export function isUntouchedOldSeed(records){
+  if(!Array.isArray(records)||records.length!==OLD_SEED_IDS.length)return false;
+  const expected=new Set(OLD_SEED_IDS);
+  const seen=new Set();
+  for(const record of records){
+    if(!expected.has(record.id)||record.revision!==1||seen.has(record.id))return false;
+    seen.add(record.id);
+  }
+  return seen.size===OLD_SEED_IDS.length;
+}
 
 function createFileStore(directory){
   const file=path.join(directory,'competitions.json');
@@ -73,8 +89,10 @@ export async function createCompetitionStore(env){
 
 export async function ensureSeeded(store){
   const records=await store.list();
-  if(records.length)return records;
-  const seeded=SAMPLE_COMPETITIONS.map(record=>({...record,questions:record.questions.map(q=>({...q,options:[...q.options]}))}));
-  await store.save(seeded);
-  return seeded;
+  if(!records.length||isUntouchedOldSeed(records)){
+    const seeded=cloneSeed();
+    await store.save(seeded);
+    return seeded;
+  }
+  return records;
 }
