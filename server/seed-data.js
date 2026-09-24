@@ -1,69 +1,71 @@
-/** Sample competitions matching the previous hardcoded homepage catalogue. */
+/** Sample competitions matching the iOS app demo catalogue (Prize.samples). */
+export const OLD_SEED_IDS = ['millennium-falcon', 'ferrari-daytona', 'rivendell'];
+
 export const SAMPLE_COMPETITIONS = [
   {
-    id: 'millennium-falcon',
-    name: 'Millennium Falcon™',
+    id: 'imperial-star-destroyer',
+    name: 'Imperial Star Destroyer™',
     theme: 'Star Wars™',
-    set: '75192',
-    pieces: '7,541',
+    set: '75394',
+    pieces: '1,555',
     price: 200,
     sold: 125,
     max: 200,
-    tag: 'THE BIG BUILD',
-    image: 'https://www.lego.com/cdn/cs/set/assets/blt3349f56c6f192e18/75192_Prod.png',
-    description: 'An iconic starship. An extraordinary build. Explore the intricate details of this Ultimate Collector Series Millennium Falcon, from its cockpit to its incredible interior.',
+    tag: 'COMMAND THE FLEET',
+    image: 'https://images.brickset.com/sets/images/75394-1.jpg',
+    description: 'Build an Imperial starship with an opening interior, a fold-out carry handle and seven minifigures, including Darth Vader and Cal Kestis.',
     closesAt: '2026-09-30T19:00:00.000Z',
     status: 'published',
     revision: 1,
     updatedAt: '2026-09-24T00:00:00.000Z',
     questions: [
-      {text: 'What type of vehicle is the Millennium Falcon?', options: ['Spaceship', 'Submarine', 'Motorbike'], correct: 0},
-      {text: 'Which film series features the Millennium Falcon?', options: ['Star Wars', 'Toy Story', 'Jurassic Park'], correct: 0},
-      {text: 'Which of these Star Wars characters is a droid?', options: ['R2-D2', 'Chewbacca', 'Han Solo'], correct: 0}
+      {text: 'Which film series features the Imperial Star Destroyer?', options: ['Toy Story', 'Star Wars', 'Jurassic Park'], correct: 1},
+      {text: 'What colour is Darth Vader’s lightsaber?', options: ['Green', 'Blue', 'Red'], correct: 2},
+      {text: 'What type of vehicle is a Star Destroyer?', options: ['Spaceship', 'Racing car', 'Submarine'], correct: 0}
     ]
   },
   {
-    id: 'ferrari-daytona',
-    name: 'Ferrari Daytona SP3',
-    theme: 'Technic™',
-    set: '42143',
-    pieces: '3,778',
+    id: 'mario-standard-kart',
+    name: 'Mario Kart™ – Mario & Standard Kart',
+    theme: 'Super Mario™',
+    set: '72037',
+    pieces: '1,972',
     price: 200,
     sold: 103,
     max: 200,
-    tag: 'FOR THE DREAM GARAGE',
-    image: 'https://www.lego.com/cdn/cs/set/assets/bltb862bc546852bd71/42143.png',
-    description: 'Bring the spirit of Italian engineering to your collection with this detailed Ferrari Daytona SP3 building set.',
+    tag: 'HIT THE TRACK',
+    image: 'https://images.brickset.com/sets/images/72037-1.jpg',
+    description: 'Build Mario in his Standard Kart, with a posable head and arms and a stand for angled racing poses.',
     closesAt: '2026-09-30T19:00:00.000Z',
     status: 'published',
     revision: 1,
     updatedAt: '2026-09-24T00:00:00.000Z',
     questions: [
-      {text: 'Which country is Ferrari originally from?', options: ['Italy', 'Canada', 'Japan'], correct: 0},
-      {text: 'How many road wheels does a Ferrari Daytona SP3 have?', options: ['Four', 'Two', 'Six'], correct: 0},
-      {text: 'What type of vehicle is the Ferrari Daytona SP3?', options: ['Sports car', 'Sailing boat', 'Helicopter'], correct: 0}
+      {text: 'What colour is Mario’s cap?', options: ['Green', 'Blue', 'Red'], correct: 2},
+      {text: 'Which game series features Mario Kart?', options: ['Minecraft', 'Super Mario', 'Pokémon'], correct: 1},
+      {text: 'How many wheels does Mario’s Standard Kart have?', options: ['Four', 'Two', 'Eight'], correct: 0}
     ]
   },
   {
-    id: 'rivendell',
-    name: 'Rivendell™',
-    theme: 'The Lord of the Rings™',
-    set: '10316',
-    pieces: '6,167',
+    id: 'the-starry-night',
+    name: 'Vincent van Gogh – The Starry Night',
+    theme: 'Ideas',
+    set: '21333',
+    pieces: '2,316',
     price: 200,
     sold: 48,
     max: 200,
-    tag: 'ESCAPE TO MIDDLE-EARTH',
-    image: 'https://www.lego.com/cdn/cs/set/assets/bltec012c948c003fba/10316_alt16.png',
-    description: 'Lose yourself in a richly detailed building experience inspired by the peaceful valley of Rivendell.',
+    tag: 'ART ON THE SHELF',
+    image: 'https://images.brickset.com/sets/images/21333-1.jpg',
+    description: 'Recreate Van Gogh’s night sky as a layered LEGO artwork, with a frame, a Van Gogh minifigure and an easel.',
     closesAt: '2026-09-30T19:00:00.000Z',
     status: 'published',
     revision: 1,
     updatedAt: '2026-09-24T00:00:00.000Z',
     questions: [
-      {text: 'In which fictional world is Rivendell located?', options: ['Middle-earth', 'Narnia', 'Wonderland'], correct: 0},
-      {text: 'Rivendell is famously home to which people?', options: ['Elves', 'Pirates', 'Astronauts'], correct: 0},
-      {text: 'Who wrote The Lord of the Rings?', options: ['J. R. R. Tolkien', 'Roald Dahl', 'Charles Dickens'], correct: 0}
+      {text: 'Who painted The Starry Night?', options: ['Claude Monet', 'Vincent van Gogh', 'Pablo Picasso'], correct: 1},
+      {text: 'What time of day does The Starry Night show?', options: ['Night', 'Midday', 'Sunrise only'], correct: 0},
+      {text: 'Vincent van Gogh was a famous what?', options: ['Painter', 'Astronaut', 'Footballer'], correct: 0}
     ]
   }
 ];
