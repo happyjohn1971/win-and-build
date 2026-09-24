@@ -10,3 +10,5 @@
 .checkout-auth span{font-size:14px;color:var(--muted)}
 .checkout-auth{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:18px 0 22px;padding:16px;border:1px solid var(--line);background:var(--paper)}
 .checkout-auth span{font-size:14px;color:var(--muted)}
+
+.draw-countdown{margin:24px 0;padding:28px;background:#182439;color:#fff;border-radius:16px;display:flex;align-items:center;justify-content:space-between;gap:24px}.draw-countdown h2{font-size:28px;margin:8px 0}.draw-countdown p{margin:8px 0}.draw-countdown .eyebrow{color:#f6d54d}.countdown-note{font-size:13px;opacity:.85}.draw-clock{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;min-width:330px}.draw-clock div{text-align:center;background:rgba(255,255,255,.08);padding:14px 10px;border-radius:10px}.draw-clock strong{display:block;color:#f6d54d;font-size:36px;font-variant-numeric:tabular-nums}.draw-clock span{font-size:12px}@media(max-width:700px){.draw-countdown{flex-direction:column;align-items:stretch;padding:20px}.draw-clock{min-width:0;gap:6px}.draw-clock strong{font-size:28px}.draw-clock div{padding:12px 6px}}
